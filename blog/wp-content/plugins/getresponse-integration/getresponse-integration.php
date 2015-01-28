@@ -205,7 +205,7 @@ class Gr_Integration {
 						update_option($this->GrOptionDbPrefix . 'checkout_label', $_POST['checkout_label']);
 					}
 					?>
-					<div id="message" class="updated fade" style="margin: 2px; 0px; 0px;">
+					<div id="message" class="updated fade" style="margin: 2px 0px 0px;">
 						<p><strong><?php _e('Settings saved', 'Gr_Integration'); ?></strong></p>
 					</div>
 					<?php
@@ -229,7 +229,7 @@ class Gr_Integration {
 			}
 			else {
 				?>
-				<div id="message" class="error " style="margin: 2px; 0px; 0px;">
+				<div id="message" class="error " style="margin: 2px 0px 0px;">
 					<p><strong><?php _e('Settings error', 'Gr_Integration'); ?></strong> <?php _e(' - Invalid API Key', 'Gr_Integration') ?></p>
 				</div>
 			<?php
@@ -239,7 +239,7 @@ class Gr_Integration {
 		if (isset($_POST['api_key']) and $_POST['api_key'] == '')
 		{
 			?>
-			<div id="message" class="error " style="margin: 2px; 0px; 0px;">
+			<div id="message" class="error " style="margin: 2px 0px 0px;">
 				<p><strong><?php _e('Settings error', 'Gr_Integration'); ?></strong> <?php _e(' - API Key can\'t be empty.', 'Gr_Integration') ?></p>
 			</div>
 		<?php

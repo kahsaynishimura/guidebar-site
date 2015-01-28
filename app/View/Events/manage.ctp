@@ -331,35 +331,40 @@
         $('#example-f').barrating({
             readonly: true
         });
+         FB.init({
+            appId: '402213736551577',
+            status: true,
+            cookie: true,
+            xfbml: true
+        });
+
     });
+    
+    function shareOnFB() {
+        FB.ui(
+                {
+                    method: 'feed',
+                    caption: 'guideBAR',
+                    name: '<?= $event['Event']['name'] ?>',
+                    picture: '<?php echo "http://guidebar.com.br/img/" . $event['Event']['filename'] ?>',
+                    link: '<?php echo "http://guidebar.com.br/events/" . $event['Event']['id']; ?>',
+                    description: '<?= mysql_escape_string($event['Event']['description']) ?>'
+                },
+        function(response) {
+        if (response && !response.error_code) {
+                        alert('Posting completed.');
+            } else {
+               alert('Error while posting.');
+           }
+        }
+        );
+    }
 </script>
 
-<div id="fb-root"></div><?php
-$url = 'http://guidebar.com.br/events/view/' . $event['Event']['id'];
-
-//echo $this->Html->meta(array('property' => 'fb:app_id', 'content' => '*******'),'',array('inline'=>false));
-//echo $this->Html->meta(array('property' => 'og:type', 'content' => 'book'),'',array('inline'=>false));
-
-$this->Html->meta(array('property' => 'og:url', 'content' => $url), '', array('inline' => false));
-
-$this->Html->meta(array('property' => 'og:title', 'content' => $event['Event']['name']), '', array('inline' => false));
-
-$this->Html->meta(array('property' => 'og:description', 'content' => $event['Event']['description']), '', array('inline' => false));
-
-$imgurl = 'http://guidebar.com.br/img/' . $event['Event']['filename'];
-
-$this->Html->meta(array('property' => 'og:image', 'content' => $imgurl), '', array('inline' => false));
-?>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id))
-            return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=402213736551577";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+<script type="text/javascript"
+        src="http://connect.facebook.net/en_US/all.js">
 </script>
+<div id="fb-root"></div> 
 <div class="row">
     <div class="col-md-12">
         <h1> <?php echo $this->Html->link($event['Event']['name'], array('controller' => 'events', 'action' => 'view', $event['Event']['id'])); ?></h1>
@@ -551,20 +556,10 @@ $this->Html->meta(array('property' => 'og:image', 'content' => $imgurl), '', arr
                         </div> 
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-md-3" >
-                                <g:plus action="share" annotation="bubble" href="http://guidebar.com.br/events/view/<?php echo $event['Event']['id']; ?>"></g:plus>
-                                <script type="text/javascript">
-                                    (function() {
-                                        var po = document.createElement('script');
-                                        po.type = 'text/javascript';
-                                        po.async = true;
-                                        po.src = 'https://apis.google.com/js/plusone.js';
-                                        var s = document.getElementsByTagName('script')[0];
-                                        s.parentNode.insertBefore(po, s);
-                                    })();
-                                </script>
+                                
                             </div> 
                             <div class="col-md-3" >
-                                <div class="fb-share-button" data-href="http://guidebar.com.br/events/view/<?php echo $event['Event']['id']; ?>" data-type="button_count"></div>
+                               <?php echo $this->Html->image('facebook.png', array('style' => 'cursor: pointer;', 'class' => 'thumbnail', 'alt' => 'Share on facebook', 'onclick' => 'shareOnFB()')); ?>
                             </div>
                         </div>
 
